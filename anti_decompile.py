@@ -46,12 +46,11 @@ class Bot(object):
     channel_username = "@SmallFaucetTrxFP_bot";
 
     def __init__(self, phone_num, limit=99):
-        if not self.api_id or not self.api_hash: return;
         if not os.path.exists(".ses-SFTFP_bot"):
             os.mkdir(".ses-SFTFP_bot");
 
         try:
-            self.client = TelegramClient(".ses-SFTFP_bot/{}".format(phone_num), self.api_id, self.api_hash);
+            self.client = TelegramClient(".ses-SFTFP_bot/{}".format(phone_num), api_id, api_hash);
             self.client.start(phone_num);
             me = self.client.get_me();
             self.channel_entity = self.client.get_entity(self.channel_username);
