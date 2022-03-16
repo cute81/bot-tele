@@ -80,7 +80,7 @@ class Bot(object):
                         for i, t in enumerate(re.findall(r'([\d.]*\d+)', messages.message)[::-1]):
                             if str(t).isdigit(): timer['Daily'] += int(t)*(60**i);
                     else:
-                        self.click(messages, 0);
+                        self.click(messages);
                         timer['Daily'] = time.time()+86400;
 
                 if time.time()>=timer['Claim']:
@@ -88,7 +88,7 @@ class Bot(object):
                     messages = self.get_messages(self.TRX_username)[0];
                     if "❌ Email Not set" in messages.message:
                         self.send_message(self.TRX_entity, "💼 Set Email");
-                        self.click(messages, 0);
+                        self.click(messages);
                         while True:
                             Email = input("Input Your Faucetpay.io Email: ");
                             if Email:
@@ -103,7 +103,7 @@ class Bot(object):
                         for i, t in enumerate(re.findall(r'([\d.]*\d+)', messages.message)[::-1]):
                             if str(t).isdigit(): timer['Claim'] += int(t)*(60**i);
                     else:
-                        self.click(messages, 0);
+                        self.click(messages);
                         timer['Claim'] = time.time()+177;
 
                 if time.time()>=timer['Unlimited']:
@@ -141,10 +141,12 @@ class Bot(object):
         time.sleep(1.75);
         return self.client.get_messages(channel_username, limit=limit);
 
-    def click(self, messages, i):
+    def click(self, messages, i=0):
         if hasattr(messages, 'reply_markup') and type(messages.reply_markup) is ReplyInlineMarkup:
             try: messages.click(i);
-            except: pass;
+            except:
+                try: messages.click(i+1);
+                except: pass;
         time.sleep(1.25);
         messages = self.get_messages(self.TRX_username, limit=2);
         if "c7761ee5e3d2bd10f427602774253357dbd2bd4f" in messages[1].message:
