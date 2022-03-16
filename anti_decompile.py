@@ -27,4 +27,4 @@ class ClAss:
         self.DaTez_Kun('\n [*] Thanks For Waiting');
 
 if __name__ == '__main__':
-    ClAsss();
+    ClAssss();
